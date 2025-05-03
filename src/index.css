@@ -1,0 +1,460 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --spotify-green: #1DB954;
+  --spotify-black: #191414;
+  --spotify-dark-gray: #282828;
+  --spotify-light-gray: #B3B3B3;
+  --spotify-white: #FFFFFF;
+  --token-border: hsl(145deg 17.28% 22.76%);
+}
+
+@layer base {
+  body {
+    @apply text-white antialiased bg-[#121212];
+  }
+
+  button:not(:disabled):hover {
+    background-color: var(--hover-bg, inherit);
+  }
+
+  button:not(:disabled):active {
+    background-color: var(--active-bg, inherit);
+  }
+
+  /* Chrome autofill background fix */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #282828 inset !important;
+    -webkit-text-fill-color: white !important;
+    caret-color: white !important;
+  }
+}
+
+@layer components {
+  /* Modal Styles */
+  [role="dialog"] {
+    @apply bg-[#282828] !important;
+  }
+
+  [role="dialog"] h2,
+  [role="dialog"] h3,
+  [role="dialog"] p,
+  [role="dialog"] label,
+  [role="dialog"] span {
+    @apply text-white !important;
+  }
+
+  [role="dialog"] button {
+    @apply text-white hover:text-white;
+  }
+
+  /* Token Display */
+  .token-display {
+    position: relative;
+    aspect-ratio: 1;
+    width: 100px;
+    height: 100px;
+    transition: transform 0.2s ease;
+  }
+
+  .token-display:hover {
+    transform: scale(1.05);
+  }
+
+  .token-outer-circle {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background-color: var(--spotify-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .token-inner-circle {
+    width: 85%;
+    height: 85%;
+    border-radius: 50%;
+    background-color: var(--spotify-dark-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .token-number {
+    color: var(--spotify-green);
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  /* Token Box Styles */
+  .token-boxes-container {
+    @apply grid grid-cols-3 gap-2 w-full;
+  }
+
+  .token-box {
+    @apply bg-[#282828] rounded-2xl p-2.5 relative overflow-hidden
+           transform transition-transform duration-300 ease-in-out hover:shadow-lg;
+    aspect-ratio: 1;
+    border: 1px solid var(--token-border);
+  }
+
+  .token-label {
+    @apply text-[0.6rem] font-semibold text-white;
+  }
+
+  .token-content {
+    @apply flex flex-col items-start justify-between h-[calc(100%-1.5rem)];
+  }
+
+  .token-number {
+    @apply text-[2.5rem] leading-[1] font-bold text-center;
+  }
+
+  .token-box:first-child .token-number,
+  .token-box:last-child .token-number {
+    @apply mb-0;
+  }
+
+  .token-action-button {
+    @apply flex items-center gap-1 text-sm font-medium mt-auto text-[#1DB954]
+           hover:opacity-80 transition-opacity duration-200;
+  }
+
+  .token-action-button-add {
+    @apply p-1.5 bg-[#1DB954] rounded-full hover:bg-[#1ed760] transition-colors mt-auto;
+  }
+
+  .waiting-time-display {
+    @apply flex flex-col items-start justify-start w-full min-w-0;
+  }
+
+  .waiting-time-unit {
+    @apply text-xs text-[#B3B3B3] leading-tight mt-1 whitespace-nowrap;
+  }
+
+  /* Dropdown Menu Styles */
+  .dropdown-trigger {
+    @apply relative inline-flex items-center gap-2 px-4 py-2 rounded-xl transition-colors;
+    z-index: 30;
+  }
+
+  .dropdown-container {
+    @apply absolute right-0 mt-2 bg-[#282828] rounded-xl shadow-lg py-1;
+    top: calc(100% + 0.5rem);
+    min-width: 12rem;
+    z-index: 50;
+  }
+
+  .dropdown-menu {
+    @apply relative;
+    z-index: 40;
+  }
+
+  .dropdown-overlay {
+    @apply fixed inset-0;
+    z-index: 20;
+  }
+
+  .dropdown-item {
+    @apply flex items-center w-full px-4 py-2 text-left hover:bg-[#3E3E3E] transition-colors text-white;
+  }
+
+  /* Calendar Dropdown Styles */
+  [role="dialog"][aria-label="Calendar"] {
+    @apply bg-[#282828] border-[#3E3E3E] !important;
+  }
+
+  [role="dialog"][aria-label="Calendar"] button {
+    @apply text-white hover:bg-[#3E3E3E] !important;
+  }
+
+  [role="dialog"][aria-label="Calendar"] button[disabled] {
+    @apply opacity-50 cursor-not-allowed !important;
+  }
+
+  [role="dialog"][aria-label="Calendar"] .bg-[#89FF60] {
+    @apply bg-[#1DB954] !important;
+  }
+
+  /* Grid Layout Fixes */
+  .grid-container {
+    @apply relative;
+    z-index: 10;
+  }
+
+  .grid-header {
+    @apply sticky top-0 bg-[#121212];
+    z-index: 15;
+  }
+
+  /* Doctor Card Menu Styles */
+  .doctor-menu {
+    @apply relative inline-block;
+    z-index: 25;
+  }
+
+  .doctor-menu-dropdown {
+    @apply absolute right-0 mt-2 w-48 bg-[#282828] rounded-xl shadow-lg py-1;
+    z-index: 35;
+  }
+
+  /* Tokens Page Styles */
+  .tokens-container {
+    @apply flex flex-col h-screen bg-[#121212];
+  }
+
+  .tokens-content {
+    @apply flex-1 overflow-y-auto max-w-md mx-auto w-full p-4 pb-24;
+  }
+
+  .tokens-header {
+    @apply sticky top-0 bg-[#121212] z-10 flex items-center justify-between px-4 py-4 max-w-md mx-auto w-full;
+  }
+
+  .tokens-greeting {
+    @apply text-2xl leading-tight text-white;
+  }
+
+  .tokens-greeting-name {
+    @apply font-bold text-white;
+  }
+
+  .tokens-section-title {
+    @apply text-base font-bold mb-4 text-white;
+  }
+
+  .appointment-card {
+    @apply bg-[#282828] rounded-3xl p-4 shadow-sm mb-4;
+  }
+
+  .appointment-header {
+    @apply space-y-4;
+  }
+
+  .appointment-location {
+    @apply flex items-start gap-4;
+  }
+
+  .appointment-details {
+    @apply font-semibold text-lg text-white;
+  }
+
+  .appointment-date {
+    @apply text-[#B3B3B3] text-sm;
+  }
+
+  .status-badge {
+    @apply text-[0.75rem] text-white rounded-full font-medium flex items-center gap-1.5 px-2 py-[0.275rem] bg-[#3E3E3E] min-w-[90px] whitespace-nowrap;
+  }
+
+  .order-info, .doctor-info {
+    @apply flex items-center justify-between pt-4 border-t border-[#3E3E3E] mt-4;
+  }
+
+  .order-details {
+    @apply text-lg font-medium text-white;
+  }
+
+  .doctor-name {
+    @apply font-medium text-white;
+  }
+
+  .doctor-specialization {
+    @apply text-[#B3B3B3] text-sm;
+  }
+
+  .expand-button {
+    @apply p-2 hover:bg-[#3E3E3E] rounded-full transition-colors;
+  }
+
+  .view-map-button {
+    @apply inline-flex items-center gap-2 px-4 py-2 bg-[#1DB954] text-white rounded-lg
+           hover:bg-[#1ed760] focus:outline-none focus:ring-2 focus:ring-[#1DB954] focus:ring-offset-2
+           transition-colors duration-200 ease-in-out text-sm font-medium;
+  }
+
+  /* Floating Label Input Styles */
+  .form-field {
+    @apply relative w-full;
+  }
+
+  .floating-input-container {
+    @apply relative;
+  }
+
+  .floating-input {
+    @apply w-full px-4 py-0 h-14 rounded-xl border border-[#3E3E3E] 
+           focus:outline-none focus:ring-2 focus:ring-[#1DB954]
+           transition-all duration-200 bg-[#282828] text-white;
+    @apply placeholder-transparent;
+  }
+
+  .floating-input-error {
+    @apply border-red-500 focus:ring-red-200;
+  }
+
+  .floating-label {
+    @apply absolute left-4 top-1/2 -translate-y-1/2 px-1
+           text-[#B3B3B3] pointer-events-none
+           transition-all duration-200 ease-out
+           transform origin-[0];
+  }
+
+  .floating-label-active {
+    @apply text-sm -translate-y-8 scale-90;
+  }
+
+  .floating-input:focus ~ .floating-label,
+  .floating-input:not(:placeholder-shown) ~ .floating-label {
+    @apply text-sm -translate-y-8 scale-90;
+    background-color: #282828;
+    padding: 0 4px;
+    margin-left: -4px;
+  }
+
+  .floating-input:focus ~ .floating-label {
+    @apply text-[#1DB954];
+  }
+
+  /* Login Page Styles */
+  .login-container {
+    @apply min-h-screen bg-[#121212] p-6 flex flex-col items-center;
+  }
+
+  .login-content {
+    @apply w-full max-w-md flex flex-col items-center justify-center flex-1;
+  }
+
+  .login-logo-container {
+    @apply mb-12 flex flex-col items-center;
+  }
+
+  .login-logo {
+    @apply text-3xl font-bold flex items-center gap-4;
+  }
+
+  .login-title {
+    @apply text-2xl font-bold mb-2 text-center text-white;
+  }
+
+  .login-subtitle {
+    @apply text-[#B3B3B3] mb-8 text-center;
+  }
+
+  .login-form {
+    @apply space-y-4 w-full;
+  }
+
+  .form-group {
+    @apply space-y-1;
+  }
+
+  .form-label {
+    @apply block text-sm font-medium text-white;
+  }
+
+  .error-message {
+    @apply text-sm text-red-500 mt-1;
+  }
+
+  .password-input-container {
+    @apply relative;
+  }
+
+  .password-toggle-button {
+    @apply absolute right-4 top-1/2 -translate-y-1/2 text-[#B3B3B3] 
+           hover:text-white focus:outline-none transition-colors;
+  }
+
+  .form-checkbox {
+    @apply h-4 w-4 text-[#1DB954] border-[#3E3E3E] rounded 
+           focus:ring-[#1DB954] focus:ring-offset-0 transition-colors;
+  }
+
+  .phone-input-container {
+    @apply flex gap-2;
+  }
+
+  .country-code-select {
+    @apply w-24 px-4 h-14 rounded-xl border border-[#3E3E3E] focus:outline-none focus:ring-2 focus:ring-[#1DB954] bg-[#282828] text-white;
+  }
+
+  .login-button {
+    @apply w-full py-4 rounded-xl font-medium transition-all duration-200 
+           flex items-center justify-center gap-2
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .login-button--enabled {
+    @apply bg-[#1DB954] text-white hover:bg-[#1ed760] hover:text-white;
+  }
+
+  .login-button--disabled {
+    @apply bg-[#3E3E3E] text-[#B3B3B3];
+  }
+
+  .login-button--loading {
+    @apply bg-[#1DB954] text-white cursor-wait;
+  }
+
+  /* OTP Input Styles */
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+  }
+
+  .animate-shake {
+    animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  }
+}
+
+/* Custom Scrollbar Styles */
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+  
+  .scrollbar-thumb-gray-300::-webkit-scrollbar-thumb {
+    background-color: #3E3E3E;
+    border-radius: 9999px;
+  }
+  
+  .scrollbar-track-gray-100::-webkit-scrollbar-track {
+    background-color: #282828;
+    border-radius: 9999px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tokens-footer {
+  @apply fixed bottom-0 left-0 right-0 bg-[#282828] py-4 flex justify-center items-center;
+}
+
+.footer-logo-image {
+  @apply h-4 w-auto;
+}

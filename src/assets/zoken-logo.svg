@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="50" viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M20 10H180V40H20V10Z" fill="none"/>
+  <text x="20" y="35" font-family="Arial Black" font-size="30" font-weight="900" fill="black">ZOKEN</text>
+  <rect x="155" y="15" width="20" height="20" transform="rotate(0 165 25)" fill="#89FF60"/>
+</svg>
